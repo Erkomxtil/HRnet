@@ -10,9 +10,9 @@ const StyledGlobalStyle = createGlobalStyle`
   }
 
   body {
-    max-width: 1024px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 40px 100px 0 100px;
+    padding: 40px 20px 0 20px;
     height: 100%;
     background: ${colors.darkGreen};
     box-sizing: border-box;
@@ -35,6 +35,10 @@ const StyledGlobalStyle = createGlobalStyle`
     border: none;
     border-radius: 10px;
     padding-left: 10px;
+  }
+
+  .Dropdown-control {
+    border-radius: 10px !important;
   }
 `
 

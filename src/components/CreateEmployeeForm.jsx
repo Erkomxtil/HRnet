@@ -4,7 +4,6 @@ import "react-datepicker/dist/react-datepicker.css"
 import Dropdown from "react-dropdown"
 import "react-dropdown/style.css"
 import { states } from "../assets/states"
-import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { colors } from "../utils/colors"
 import { useDispatch } from "react-redux"
@@ -20,6 +19,7 @@ import {
   getZipCode,
 } from "../Store/store"
 import { CheckAllInputs } from "../utils/checkInputs"
+import Home from "../assets/home.png"
 
 const InfoWrapper = styled.div`
   background: ${colors.lightGreen};
@@ -38,6 +38,14 @@ const InputRow = styled.div`
 const DateWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 18px;
+    right: 8px;
+    cursor: pointer;
+  }
 `
 const AddressWrapper = styled.div`
   margin-top: 30px;
@@ -93,7 +101,6 @@ const ErrorMessage = styled.p`
 `
 
 function CreateEmployeeForm({ setActive }) {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   // Element for the input's form
@@ -115,19 +122,22 @@ function CreateEmployeeForm({ setActive }) {
   ]
   const [department, setDepartment] = useState(departmentOptions[0])
 
-  // Conversion of the date for the view
-  const timeStampBirth = new Date(birth).toLocaleDateString("fr-FR")
-  const timeStampStartDate = new Date(startDate).toLocaleDateString("fr-FR")
-
-  // To display the code in the view of the employees
-  const codeState = () => {
-    const code = states.find((state) => state.name === countryState)
-    return code.abbreviation
+  const resetDate = (inputDate) => {
+    const actualDate = new Date()
+    if (inputDate === "birth") {
+      setBirth(actualDate)
+    }
+    if (inputDate === "startDate") {
+      setStartDate(actualDate)
+    }
   }
+
+  // Conversion of the date for the view
+  const birthTransformed = new Date(birth).toLocaleDateString("fr-FR")
+  const startDateTransformed = new Date(startDate).toLocaleDateString("fr-FR")
 
   const HandleSubmit = (e) => {
     e.preventDefault()
-
     const checkInput = (inputValue) => {
       if (inputValue === "") {
         return false
@@ -138,8 +148,8 @@ function CreateEmployeeForm({ setActive }) {
     // We check every input so we make sure that they are not empty
     const firstNameCheck = checkInput(firstName)
     const lastNameCheck = checkInput(lastName)
-    const dateOfBirthCheck = checkInput(birth)
-    const startDateCheck = checkInput(timeStampStartDate)
+    const dateOfBirthCheck = checkInput(birthTransformed)
+    const startDateCheck = checkInput(startDateTransformed)
     const streetCheck = checkInput(street)
     const cityCheck = checkInput(city)
     const zipCodeCheck = checkInput(zipCode)
@@ -161,14 +171,14 @@ function CreateEmployeeForm({ setActive }) {
       // Save the employee to the localStorage
       const employeesArray = JSON.parse(localStorage.getItem("employees")) || []
       const employee = {
-        city,
-        birth,
-        department,
         firstName,
         lastName,
-        startDate,
-        code,
+        startDateTransformed,
+        department,
+        birthTransformed,
         street,
+        city,
+        code,
         zipCode,
       }
       employeesArray.push(employee)
@@ -179,15 +189,15 @@ function CreateEmployeeForm({ setActive }) {
     }
 
     // update the store before we send the user to the employee's page
-    dispatch(getFirstName(firstName))
-    dispatch(getLastName(lastName))
-    dispatch(getDateOfBirth(timeStampBirth))
-    dispatch(getStartDate(timeStampStartDate))
-    dispatch(getStreet(street))
-    dispatch(getCity(city))
+    dispatch(getFirstName(firstName.toLowerCase()))
+    dispatch(getLastName(lastName.toLowerCase()))
+    dispatch(getDateOfBirth(birthTransformed))
+    dispatch(getStartDate(startDateTransformed))
+    dispatch(getStreet(street.toLowerCase()))
+    dispatch(getCity(city.toLocaleLowerCase()))
     dispatch(getState(codeState.abbreviation))
     dispatch(getZipCode(zipCode))
-    dispatch(getDepartment(department))
+    dispatch(getDepartment(department.toLowerCase()))
 
     CheckAllInputs(firstName, lastName, birth, startDate, street, city, zipCode)
   }
@@ -208,7 +218,7 @@ function CreateEmployeeForm({ setActive }) {
       <InfoWrapper>
         <InputRow>
           <div>
-            <label htmlFor="firstName">First Name</label>
+            <label htmlFor="firstName">First Name*</label>
             <br />
             <input
               type="text"
@@ -222,7 +232,7 @@ function CreateEmployeeForm({ setActive }) {
             </ErrorMessage>
           </div>
           <div>
-            <label htmlFor="lastName">Last Name</label>
+            <label htmlFor="lastName">Last Name*</label>
             <br />
             <input
               type="text"
@@ -238,7 +248,7 @@ function CreateEmployeeForm({ setActive }) {
         </InputRow>
         <InputRow>
           <DateWrapper>
-            <label htmlFor="birth">Date of birth</label>
+            <label htmlFor="birth">Date of birth*</label>
             <DatePicker
               selected={birth}
               onChange={(date) => setBirth(date)}
@@ -252,13 +262,20 @@ function CreateEmployeeForm({ setActive }) {
               yearDropdownItemNumber={100}
               value={birth}
               id="birth"
+            />{" "}
+            <img
+              src={Home}
+              alt="Home calendar"
+              width="30"
+              height="30"
+              onClick={() => resetDate("birth")}
             />
             <ErrorMessage id="dateOfBirthError">
               Date of birth must be filled out
             </ErrorMessage>
           </DateWrapper>
           <DateWrapper>
-            <label htmlFor="startDate">Start Date</label>
+            <label htmlFor="startDate">Start Date*</label>
             <DatePicker
               selected={startDate}
               onChange={(date) => setStartDate(date)}
@@ -273,6 +290,13 @@ function CreateEmployeeForm({ setActive }) {
               value={startDate}
               id="startDate"
             />
+            <img
+              src={Home}
+              alt="Home calendar"
+              width="30"
+              height="30"
+              onClick={() => resetDate("startDate")}
+            />
             <ErrorMessage id="startDateError">
               Start date must be filled out
             </ErrorMessage>
@@ -283,7 +307,7 @@ function CreateEmployeeForm({ setActive }) {
         <h2>Address</h2>
         <InputRow>
           <div>
-            <label htmlFor="street">Street</label>
+            <label htmlFor="street">Street*</label>
             <br />
             <input
               type="text"
@@ -297,7 +321,7 @@ function CreateEmployeeForm({ setActive }) {
             </ErrorMessage>
           </div>
           <div>
-            <label htmlFor="city">City </label>
+            <label htmlFor="city">City*</label>
             <br />
             <input
               type="text"
@@ -313,7 +337,7 @@ function CreateEmployeeForm({ setActive }) {
         </InputRow>
         <InputRow>
           <div>
-            <label htmlFor="city">State </label>
+            <label htmlFor="city">State</label>
             <Dropdown
               options={state}
               value={countryState}
@@ -321,7 +345,7 @@ function CreateEmployeeForm({ setActive }) {
             />
           </div>
           <div>
-            <label htmlFor="zipCode">Zip code </label>
+            <label htmlFor="zipCode">Zip code*</label>
             <br />
             <input
               type="text"

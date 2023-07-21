@@ -31,7 +31,7 @@ const LinkStyled = styled(Link)`
 function HeaderHome({ title, link, textLink }) {
   return (
     <TitleWrapper>
-      <ImgStyled src={logo} alt="Logo Wealth Health" />
+      <ImgStyled src={logo} alt="Logo Wealth Health" width="150" height="150" />
       <TitleStyled>{title}</TitleStyled>
       <LinkStyled to={link}>{textLink}</LinkStyled>
     </TitleWrapper>
