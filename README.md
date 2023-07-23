@@ -22,7 +22,7 @@ Vous travaillez pour le département technologique d'une grande société financ
 
 Cette société utilise une application web interne, appelée HRnet, qui gère les dossiers des employés. L'application est ancienne et utilise jQuery côté front end, ce qui entraîne des bugs considérables et une augmentation des plaintes en interne. Votre équipe de développement s'efforce depuis un certain temps déjà de mettre à niveau l'application. 
 
-Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette librarie sur [GitHub](https://github.com/Erkomxtil/simple-modal), [npmjs.com](https://www.npmjs.com/package/react-ab-data-table) et de fournir des [comparatifs de performances](/lighthouse-repport).
+Mon rôle a été de mettre l'application à niveau en utilisant React, de convertir un des quatres plugins jQuery utilisés par l'application en librairie React et de publier cette librarie sur [GitHub](https://github.com/Erkomxtil/simple-modal), [npmjs.com](https://www.npmjs.com/package/modal-reactjs-erkomxtil) et de fournir des comparatifs de performances.
 
 
 
