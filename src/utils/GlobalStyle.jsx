@@ -13,9 +13,10 @@ const StyledGlobalStyle = createGlobalStyle`
     max-width: 1400px;
     margin: 0 auto;
     padding: 40px 20px 0 20px;
-    height: 100%;
+    min-height: 100vh;
     background: ${colors.darkGreen};
     box-sizing: border-box;
+
 
     font-family: Montserrat, sans-serif;
     @media (max-width: 768px) {

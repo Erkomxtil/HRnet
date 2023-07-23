@@ -106,9 +106,11 @@ const ButtonHome = styled.div`
 const Error = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 300px;
 `
 
-function Employees(props) {
+function Employees() {
   const navigate = useNavigate()
 
   /**
@@ -162,7 +164,7 @@ function Employees(props) {
         size: 150,
       },
     ],
-    []
+    [],
   )
 
   /**
@@ -173,17 +175,6 @@ function Employees(props) {
   useEffect(() => {
     setDatas(JSON.parse(localStorage.getItem("employees")))
   }, [])
-
-  const changeText = () => {
-    const changeShowing = document.querySelector(
-      ".MuiTablePagination-displayedRows"
-    )
-    const changeText = changeShowing.textContent
-    const newText = changeText.replace("-", " to ")
-    changeShowing.innerHTML = "test"
-    console.log(newText)
-  }
-  window.addEventListener("load", changeText)
 
   return (
     <MainWrapper>

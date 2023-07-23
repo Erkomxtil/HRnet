@@ -3,7 +3,7 @@ import { colors } from "../../utils/colors"
 import styled from "styled-components"
 import Header from "../../components/Header"
 import CreateEmployeeForm from "../../components/CreateEmployeeForm"
-const Modal = lazy(() => import("../../components/Modal"))
+import { Modal } from "modal-reactjs-erkomxtil"
 
 const HomeWrapper = styled.div`
   background: ${colors.darkGreen};
@@ -35,7 +35,7 @@ function Home() {
       />
       <h2>Create employee</h2>
       <CreateEmployeeForm setActive={setActive} />
-      <Modal active={active} setActive={setActive} />
+      <Modal active={active} setActive={setActive} text="Employee created!" />
     </HomeWrapper>
   )
 }

@@ -63,5 +63,3 @@ export const store = configureStore({
     employees: employeeSlice.reducer,
   },
 })
-
-console.log(store.getState())

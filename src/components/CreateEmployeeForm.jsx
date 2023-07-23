@@ -167,7 +167,6 @@ function CreateEmployeeForm({ setActive }) {
       cityCheck &&
       zipCodeCheck
     ) {
-      console.log("check ok")
       // Save the employee to the localStorage
       const employeesArray = JSON.parse(localStorage.getItem("employees")) || []
       const employee = {
@@ -212,7 +211,7 @@ function CreateEmployeeForm({ setActive }) {
         startDate,
         street,
         city,
-        zipCode
+        zipCode,
       )}
     >
       <InfoWrapper>
