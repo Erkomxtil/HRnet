@@ -34,6 +34,16 @@ const InputRow = styled.div`
   justify-content: center;
   gap: 20px;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    input {
+      width: 100%;
+    }
+    .Dropdown-control {
+      width: 100%;
+    }
+  }
 `
 const DateWrapper = styled.div`
   display: flex;
@@ -75,6 +85,13 @@ const DepartementWrapper = styled.div`
   h2 {
     padding: 0;
     margin-bottom: 30px;
+  }
+
+  @media screen and (max-width: 500px) {
+    .Dropdown-root,
+    .Dropdown-control {
+      width: 100%;
+    }
   }
 `
 const ButtonStyled = styled.button`

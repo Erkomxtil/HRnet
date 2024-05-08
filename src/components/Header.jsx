@@ -7,6 +7,10 @@ import { colors } from "../utils/colors"
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
 `
 const ImgStyled = styled.img`
   width: 100px;
@@ -17,6 +21,10 @@ const TitleStyled = styled.h1`
   display: inline-flex;
   padding-left: 20px;
   flex: 1;
+  @media screen and (max-width: 500px) {
+    padding-left: 0px;
+    margin: 20px 0;
+  }
 `
 const LinkStyled = styled(Link)`
   text-align: right;
