@@ -1,4 +1,4 @@
-import React, { useState, lazy } from "react"
+import React, { useState } from "react"
 import { colors } from "../../utils/colors"
 import styled from "styled-components"
 import Header from "../../components/Header"
